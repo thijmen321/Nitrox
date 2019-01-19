@@ -2,6 +2,7 @@
 using NitroxModel.DataStructures.GameLogic;
 using NitroxServer.UnityStubs;
 using NitroxModel.Logger;
+using System;
 
 namespace NitroxServer.GameLogic.Entities.Spawning
 {
@@ -45,6 +46,30 @@ namespace NitroxServer.GameLogic.Entities.Spawning
             esp.Scale = go.GetComponent<Transform>().Scale;
 
             return esp;
+        }
+
+        public override bool Equals(object obj)
+        {
+            // Check for null values and compare run-time types.
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            EntitySpawnPoint spawnPoint = (EntitySpawnPoint)obj;
+
+            return spawnPoint.Position == Position && 
+                   spawnPoint.ClassId == ClassId;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int classIdHash = (ClassId != null) ? ClassId.GetHashCode() : 0;
+
+                return (269 + (Position.GetHashCode() * 23)) + classIdHash;
+            }
         }
 
         public override string ToString() => $"[EntitySpawnPoint - {AbsoluteEntityCell}, Position: {Position}, Rotation: {Rotation}, Scale: {Scale}, ClassId: {ClassId}, Guid: {Guid}, BiomeType: {BiomeType}, Density: {Density}, CanSpawnCreature: {CanSpawnCreature}]";
