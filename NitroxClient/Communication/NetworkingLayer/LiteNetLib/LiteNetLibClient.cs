@@ -1,4 +1,4 @@
-using System.Threading;
+﻿using System.Threading;
 using LiteNetLib;
 using LiteNetLib.Utils;
 using NitroxClient.Communication.Abstract;
@@ -50,7 +50,7 @@ namespace NitroxClient.Communication.NetworkingLayer.LiteNetLib
 
         public void Send(Packet packet)
         {
-            client.SendToAll(netPacketProcessor.Write(packet.ToWrapperPacket()), NitroxDeliveryMethod.ToLiteNetLib(packet.DeliveryMethod));
+            client.SendToAll(netPacketProcessor.Write(Packet.SerializeToWrapper(packet)), NitroxDeliveryMethod.ToLiteNetLib(packet.DeliveryMethod));
             client.Flush();
         }
 

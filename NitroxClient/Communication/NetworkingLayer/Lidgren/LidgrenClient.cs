@@ -1,4 +1,4 @@
-using System.Threading;
+﻿using System.Threading;
 using Lidgren.Network;
 using NitroxClient.Communication.Abstract;
 using NitroxClient.MonoBehaviours.Gui.InGame;
@@ -40,7 +40,7 @@ namespace NitroxClient.Communication.NetworkingLayer.Lidgren
 
         public void Send(Packet packet)
         {
-            byte[] bytes = packet.Serialize();
+            byte[] bytes = Packet.Serialize(packet);
 
             NetOutgoingMessage om = client.CreateMessage();
             om.Write(bytes);

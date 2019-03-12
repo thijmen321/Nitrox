@@ -3,21 +3,19 @@ using UnityEngine;
 
 namespace NitroxModel.DataStructures.Surrogates
 {
-    public class Vector3Surrogate : SerializationSurrogate<Vector3>
+    public class Vector3Surrogate
     {
-        protected override void GetObjectData(Vector3 vector3, SerializationInfo info)
-        {
-            info.AddValue("x", vector3.x);
-            info.AddValue("y", vector3.y);
-            info.AddValue("z", vector3.z);
-        }
+        public float X { get; set; }
+        public float Y { get; set; }
+        public float Z { get; set; }
 
-        protected override Vector3 SetObjectData(Vector3 vector3, SerializationInfo info)
+        public static implicit operator Vector3Surrogate(Vector3 c) => new Vector3Surrogate
         {
-            vector3.x = info.GetSingle("x");
-            vector3.y = info.GetSingle("y");
-            vector3.z = info.GetSingle("z");
-            return vector3;
-        }
+            X = c.x,
+            Y = c.y,
+            Z = c.z,
+        };
+
+        public static implicit operator Vector3(Vector3Surrogate c) => new Vector3(c.X, c.Y, c.Z);
     }
 }

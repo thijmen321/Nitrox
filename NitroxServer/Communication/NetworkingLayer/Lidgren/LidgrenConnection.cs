@@ -1,4 +1,4 @@
-using Lidgren.Network;
+﻿using Lidgren.Network;
 using NitroxModel.Logger;
 using NitroxModel.Networking;
 using NitroxModel.Packets;
@@ -21,7 +21,7 @@ namespace NitroxServer.Communication.NetworkingLayer.Lidgren
         {
             if (connection.Status == NetConnectionStatus.Connected)
             {
-                byte[] packetData = packet.Serialize();
+                byte[] packetData = Packet.Serialize(packet);
                 NetOutgoingMessage om = server.CreateMessage();
                 om.Write(packetData);
 

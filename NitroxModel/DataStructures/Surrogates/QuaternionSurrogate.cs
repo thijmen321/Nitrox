@@ -3,23 +3,21 @@ using UnityEngine;
 
 namespace NitroxModel.DataStructures.Surrogates
 {
-    public class QuaternionSurrogate : SerializationSurrogate<Quaternion>
+    public class QuaternionSurrogate
     {
-        protected override void GetObjectData(Quaternion quaternion, SerializationInfo info)
-        {
-            info.AddValue("w", quaternion.w);
-            info.AddValue("x", quaternion.x);
-            info.AddValue("y", quaternion.y);
-            info.AddValue("z", quaternion.z);
-        }
+        public float X { get; set; }
+        public float Y { get; set; }
+        public float Z { get; set; }
+        public float W { get; set; }
 
-        protected override Quaternion SetObjectData(Quaternion quaternion, SerializationInfo info)
+        public static implicit operator QuaternionSurrogate(Quaternion c) => new QuaternionSurrogate
         {
-            quaternion.w = info.GetSingle("w");
-            quaternion.x = info.GetSingle("x");
-            quaternion.y = info.GetSingle("y");
-            quaternion.z = info.GetSingle("z");
-            return quaternion;
-        }
+            X = c.x,
+            Y = c.y,
+            Z = c.z,
+            W = c.w,
+        };
+
+        public static implicit operator Quaternion(QuaternionSurrogate c) => new Quaternion(c.X, c.Y, c.Z, c.W);
     }
 }

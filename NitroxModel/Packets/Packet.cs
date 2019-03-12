@@ -11,41 +11,27 @@ using NitroxModel.DataStructures.GameLogic;
 using LZ4;
 using NitroxModel.Networking;
 using System.Collections.Generic;
+using ProtoBufNet.Meta;
+using NitroxModel.Helper;
+using UnityEngine;
+using ProtoBufNet;
 
 namespace NitroxModel.Packets
 {
     [Serializable]
     public abstract class Packet
     {
-        private static readonly SurrogateSelector surrogateSelector;
-        private static readonly StreamingContext streamingContext;
-        private static readonly BinaryFormatter Serializer;
+        private static readonly RuntimeTypeModel serializer;
         
         static Packet()
         {
-            surrogateSelector = new SurrogateSelector();
-            streamingContext = new StreamingContext(StreamingContextStates.All); // Our surrogates can be safely used in every context.
-
-            Type[] types = Assembly.GetExecutingAssembly()
-                .GetTypes();
-
-            IEnumerable<Type> surrogates = types.Where(t =>
-                                                       t.BaseType != null &&
-                                                       t.BaseType.IsGenericType &&
-                                                       t.BaseType.GetGenericTypeDefinition() == typeof(SerializationSurrogate<>) &&
-                                                       t.IsClass &&
-                                                       !t.IsAbstract);
-            foreach(Type type in surrogates)
-            {
-                ISerializationSurrogate surrogate = (ISerializationSurrogate)Activator.CreateInstance(type);
-                Type surrogatedType = type.BaseType.GetGenericArguments()[0];
-                surrogateSelector.AddSurrogate(surrogatedType, streamingContext, surrogate);
-
-                Log.Debug("Added surrogate " + surrogate + " for type " + surrogatedType);
-            }
-
-            // For completeness, we could pass a StreamingContextStates.CrossComputer.
-            Serializer = new BinaryFormatter(surrogateSelector, streamingContext);
+            serializer = new TypeModelBuilder(TypeModelMembers.PublicProperties | TypeModelMembers.PublicFields)
+                .AddTypesWithAttribute<SerializableAttribute>(typeof(Packet).Assembly)
+                .AddSurrogate<ColorSurrogate, Color>()
+                .AddSurrogate<QuaternionSurrogate, Quaternion>()
+                .AddSurrogate<Vector3Surrogate, Vector3>()
+                .AddSurrogate<VersionSurrogate, Version>()
+                .Compile();
         }
 
         public NitroxDeliveryMethod.DeliveryMethod DeliveryMethod { get; protected set; } = NitroxDeliveryMethod.DeliveryMethod.ReliableOrdered;
@@ -59,37 +45,33 @@ namespace NitroxModel.Packets
             PLAYER_STATS = 3
         }
 
-        public byte[] Serialize()
+        public static byte[] Serialize(Packet packet)
         {
-            byte[] packetData;
-
             using (MemoryStream ms = new MemoryStream())
-            using (LZ4Stream lz4Stream = new LZ4Stream(ms, LZ4StreamMode.Compress))
+            using (LZ4Stream lz4s = new LZ4Stream(ms, LZ4StreamMode.Compress))
             {
-                Serializer.Serialize(lz4Stream, this);
-                packetData = ms.ToArray();
+                serializer.SerializeWithLengthPrefix(lz4s, packet, typeof(Packet), PrefixStyle.Fixed32BigEndian, -1);
+                return ms.GetBuffer();
             }
+        }
 
-            return packetData;
+        public static WrapperPacket SerializeToWrapper(Packet packet)
+        {
+            return new WrapperPacket(Serialize(packet));
         }
 
         public static Packet Deserialize(byte[] data)
         {
-            using (Stream stream = new MemoryStream(data))
-            using (LZ4Stream lz4Stream = new LZ4Stream(stream, LZ4StreamMode.Decompress))
+            using (MemoryStream ms = new MemoryStream(data, false))
+            using (LZ4Stream lz4s = new LZ4Stream(ms, LZ4StreamMode.Decompress))
             {
-                return (Packet)Serializer.Deserialize(lz4Stream);
+                return (Packet)serializer.DeserializeWithLengthPrefix(lz4s, null, typeof(Packet), PrefixStyle.Fixed32BigEndian, -1);
             }
         }
 
         public static bool IsTypeSerializable(Type type)
         {
-            // We have our own surrogates to (de)serialize types that are not marked [Serializable]
-            // This code is very similar to how serializability is checked in:
-            // System.Runtime.Serialization.Formatters.Binary.BinaryCommon.CheckSerializable
-
-            ISurrogateSelector selector;
-            return (Serializer.SurrogateSelector.GetSurrogate(type, Packet.Serializer.Context, out selector) != null);
+            return serializer.CanSerialize(type);
         }
 
         // Deferred cells are a replacement for the old DeferredPacket class.  The idea
@@ -100,11 +82,6 @@ namespace NitroxModel.Packets
         public virtual Optional<AbsoluteEntityCell> GetDeferredCell()
         {
             return Optional<AbsoluteEntityCell>.Empty();
-        }
-
-        public WrapperPacket ToWrapperPacket()
-        {
-            return new WrapperPacket(Serialize());
         }
     }
 }

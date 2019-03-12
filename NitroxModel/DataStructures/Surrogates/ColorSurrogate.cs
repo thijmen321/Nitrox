@@ -3,23 +3,21 @@ using UnityEngine;
 
 namespace NitroxModel.DataStructures.Surrogates
 {
-    public class ColorSurrogate : SerializationSurrogate<Color>
+    public class ColorSurrogate
     {
-        protected override void GetObjectData(Color color, SerializationInfo info)
-        {
-            info.AddValue("r", color.r);
-            info.AddValue("g", color.g);
-            info.AddValue("b", color.b);
-            info.AddValue("a", color.a);
-        }
+        public float R { get; set; }
+        public float G { get; set; }
+        public float B { get; set; }
+        public float A { get; set; }
 
-        protected override Color SetObjectData(Color color, SerializationInfo info)
+        public static implicit operator ColorSurrogate(Color c) => new ColorSurrogate
         {
-            color.r = info.GetSingle("r");
-            color.g = info.GetSingle("g");
-            color.b = info.GetSingle("b");
-            color.a = info.GetSingle("a");
-            return color;
-        }
+            R = c.r,
+            G = c.g,
+            B = c.b,
+            A = c.a,
+        };
+
+        public static implicit operator Color(ColorSurrogate c) => new Color(c.R, c.G, c.B, c.A);
     }
 }
