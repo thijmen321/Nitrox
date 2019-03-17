@@ -5,12 +5,12 @@ namespace NitroxModel.DataStructures.Surrogates
 {
     public class ColorSurrogate
     {
-        public float R { get; set; }
-        public float G { get; set; }
-        public float B { get; set; }
-        public float A { get; set; }
+        public float R { get; private set; }
+        public float G { get; private set; }
+        public float B { get; private set; }
+        public float A { get; private set; }
 
-        public static implicit operator ColorSurrogate(Color c) => new ColorSurrogate
+        public static implicit operator ColorSurrogate(Color c) => c == null ? null : new ColorSurrogate
         {
             R = c.r,
             G = c.g,

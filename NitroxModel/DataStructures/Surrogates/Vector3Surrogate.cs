@@ -5,11 +5,11 @@ namespace NitroxModel.DataStructures.Surrogates
 {
     public class Vector3Surrogate
     {
-        public float X { get; set; }
-        public float Y { get; set; }
-        public float Z { get; set; }
+        public float X { get; private set; }
+        public float Y { get; private set; }
+        public float Z { get; private set; }
 
-        public static implicit operator Vector3Surrogate(Vector3 c) => new Vector3Surrogate
+        public static implicit operator Vector3Surrogate(Vector3 c) => c == null ? null : new Vector3Surrogate
         {
             X = c.x,
             Y = c.y,

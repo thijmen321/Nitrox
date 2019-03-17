@@ -4,19 +4,13 @@ namespace NitroxModel.DataStructures.Surrogates
 {
     public class VersionSurrogate
     {
-        public int Major { get; set; }
-        public int Minor { get; set; }
-        public int Build { get; set; }
-        public int Revision { get; set; }
+        public string Version { get; private set; }
 
-        public static implicit operator VersionSurrogate(Version v) => new VersionSurrogate
+        public static implicit operator VersionSurrogate(Version v) => v == null ? null : new VersionSurrogate
         {
-            Major = v.Major,
-            Minor = v.Minor,
-            Build = v.Build,
-            Revision = v.Revision,
+            Version = v.ToString()
         };
 
-        public static implicit operator Version(VersionSurrogate v) => new Version(v.Major, v.Minor, v.Build, v.Revision);
+        public static implicit operator Version(VersionSurrogate v) => v == null ? null : new Version(v.Version);
     }
 }

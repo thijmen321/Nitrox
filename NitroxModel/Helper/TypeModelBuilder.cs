@@ -43,7 +43,7 @@ namespace NitroxModel.Helper
 
         public RuntimeTypeModel Compile()
         {
-            GenerateInheritanceModel();
+            FixPolymorphism();
 
             return Model;
         }
@@ -82,7 +82,7 @@ namespace NitroxModel.Helper
             return this;
         }
 
-        private void GenerateInheritanceModel()
+        private void FixPolymorphism()
         {
             IEnumerable<MetaType> types = Model.GetTypes().Cast<MetaType>();
             Dictionary<Type, MetaType> typeLookup = types.ToDictionary(m => m.Type);

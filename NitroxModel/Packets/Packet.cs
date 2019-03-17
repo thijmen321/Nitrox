@@ -31,6 +31,7 @@ namespace NitroxModel.Packets
                 .AddSurrogate<QuaternionSurrogate, Quaternion>()
                 .AddSurrogate<Vector3Surrogate, Vector3>()
                 .AddSurrogate<VersionSurrogate, Version>()
+                .AddType<Optional<string>>()
                 .Compile();
         }
 
@@ -48,10 +49,15 @@ namespace NitroxModel.Packets
         public static byte[] Serialize(Packet packet)
         {
             using (MemoryStream ms = new MemoryStream())
-            using (LZ4Stream lz4s = new LZ4Stream(ms, LZ4StreamMode.Compress))
+            //using (LZ4Stream lz4s = new LZ4Stream(ms, LZ4StreamMode.Compress))
             {
-                serializer.SerializeWithLengthPrefix(lz4s, packet, typeof(Packet), PrefixStyle.Fixed32BigEndian, -1);
-                return ms.GetBuffer();
+                Console.WriteLine("Packet serializing");
+                serializer.SerializeWithLengthPrefix(ms, packet, typeof(Packet), PrefixStyle.Fixed32BigEndian, -1);
+
+                byte[] buf = ms.ToArray();
+                Console.WriteLine($"Packet serialized: {string.Join(",", buf.Select(x => x.ToString()).ToArray())}");
+
+                return buf;
             }
         }
 
@@ -62,10 +68,14 @@ namespace NitroxModel.Packets
 
         public static Packet Deserialize(byte[] data)
         {
-            using (MemoryStream ms = new MemoryStream(data, false))
-            using (LZ4Stream lz4s = new LZ4Stream(ms, LZ4StreamMode.Decompress))
+            using (MemoryStream ms = new MemoryStream(data))
+            //using (LZ4Stream lz4s = new LZ4Stream(ms, LZ4StreamMode.Decompress))
             {
-                return (Packet)serializer.DeserializeWithLengthPrefix(lz4s, null, typeof(Packet), PrefixStyle.Fixed32BigEndian, -1);
+                Console.WriteLine($"Packet deserializing: {string.Join(",", data.Select(x => x.ToString()).ToArray())}");
+
+                Packet p = (Packet)serializer.DeserializeWithLengthPrefix(ms, null, typeof(Packet), PrefixStyle.Fixed32BigEndian, -1);
+                Console.WriteLine("Packet deserialized");
+                return p;
             }
         }
 

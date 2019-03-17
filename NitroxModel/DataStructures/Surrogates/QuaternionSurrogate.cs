@@ -5,12 +5,12 @@ namespace NitroxModel.DataStructures.Surrogates
 {
     public class QuaternionSurrogate
     {
-        public float X { get; set; }
-        public float Y { get; set; }
-        public float Z { get; set; }
-        public float W { get; set; }
+        public float X { get; private set; }
+        public float Y { get; private set; }
+        public float Z { get; private set; }
+        public float W { get; private set; }
 
-        public static implicit operator QuaternionSurrogate(Quaternion c) => new QuaternionSurrogate
+        public static implicit operator QuaternionSurrogate(Quaternion c) => c == null ? null : new QuaternionSurrogate
         {
             X = c.x,
             Y = c.y,
