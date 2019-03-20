@@ -43,8 +43,8 @@ namespace NitroxModel.DataStructures.GameLogic
         public string WaterParkGuid { get; set; }
 
         [ProtoMember(11)]
-        public byte[] SerializedGameObject { get; set; } // Some entities (such as dropped items) have already been serialized and include 
-                                                         // special game object meta data (like battery charge)
+        public byte[] SerializedGameObject { get; set; } = new byte[0]; // Some entities (such as dropped items) have already been serialized and include 
+                                                                        // special game object meta data (like battery charge)
         [ProtoMember(12)]
         public bool ExistsInGlobalRoot { get; set; }
                 

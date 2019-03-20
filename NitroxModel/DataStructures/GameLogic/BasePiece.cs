@@ -25,7 +25,7 @@ namespace NitroxModel.DataStructures.GameLogic
 
         [ProtoMember(5)]
         public string SerializableParentBaseGuid {
-            get { return (ParentGuid.IsPresent()) ? ParentGuid.Get() : null; }
+            get { return (ParentGuid.HasValue) ? ParentGuid.Get() : null; }
             set { ParentGuid = Optional<string>.OfNullable(value); }
         }
 
@@ -53,7 +53,7 @@ namespace NitroxModel.DataStructures.GameLogic
         [ProtoMember(12, DynamicType = true)]
         public RotationMetadata SerializableRotationMetadata
         {
-            get { return (RotationMetadata.IsPresent()) ? RotationMetadata.Get() : null; }
+            get { return (RotationMetadata.HasValue) ? RotationMetadata.Get() : null; }
             set { RotationMetadata = Optional<RotationMetadata>.OfNullable(value); }
         }
 
@@ -63,7 +63,7 @@ namespace NitroxModel.DataStructures.GameLogic
         [ProtoMember(13, DynamicType = true)]
         public BasePieceMetadata SerializableMetadata
         {
-            get { return (Metadata.IsPresent()) ? Metadata.Get() : null; }
+            get { return (Metadata.HasValue) ? Metadata.Get() : null; }
             set { Metadata = Optional<BasePieceMetadata>.OfNullable(value); }
         }
 

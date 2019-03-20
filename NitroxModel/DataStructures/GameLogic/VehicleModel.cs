@@ -25,14 +25,14 @@ namespace NitroxModel.DataStructures.GameLogic
         [ProtoMember(5)]
         public List<InteractiveChildObjectIdentifier> SerializableInteractiveChildIdentifiers
         {
-            get { return (InteractiveChildIdentifiers.IsPresent()) ? InteractiveChildIdentifiers.Get() : null; }
+            get { return (InteractiveChildIdentifiers.HasValue) ? InteractiveChildIdentifiers.Get() : null; }
             set { InteractiveChildIdentifiers = Optional<List<InteractiveChildObjectIdentifier>>.OfNullable(value); }
         }
 
         [ProtoMember(6)]
         public string SerializableDockingBayGuid
         {
-            get { return (DockingBayGuid.IsPresent()) ? DockingBayGuid.Get() : null; }
+            get { return (DockingBayGuid.HasValue) ? DockingBayGuid.Get() : null; }
             set { DockingBayGuid = Optional<string>.OfNullable(value); }
         }
 
@@ -40,10 +40,10 @@ namespace NitroxModel.DataStructures.GameLogic
         public string Name { get; set; }
 
         [ProtoMember(8)]
-        public Vector3[] HSB { get; set; }
+        public Vector3[] HSB { get; set; } = new Vector3[0];
 
         [ProtoMember(9)]
-        public Vector3[] Colours { get; set; }
+        public Vector3[] Colours { get; set; } = new Vector3[0];
 
         [ProtoIgnore]
         public Optional<List<InteractiveChildObjectIdentifier>> InteractiveChildIdentifiers { get; set; }

@@ -73,14 +73,14 @@ namespace NitroxServer_Subnautica.Serialization
         {
             List<string> errors = new List<string>();
             Optional<string> subnauticaPath = GameInstallationFinder.Instance.FindGame(errors);
-            if (subnauticaPath.IsEmpty())
+            if (!subnauticaPath.HasValue)
             {
                 Log.Info($"Could not locate Subnautica installation directory: {Environment.NewLine}{string.Join(Environment.NewLine, errors)}");
             }
             
             string gameResourcesPath = "";
 
-            if (!subnauticaPath.IsEmpty())
+            if (subnauticaPath.HasValue)
             {
                 gameResourcesPath = Path.Combine(subnauticaPath.Get(), "Subnautica_Data", "resources.assets");
             }

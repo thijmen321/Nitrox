@@ -124,7 +124,7 @@ namespace NitroxClient.MonoBehaviours
 
             GameObject parentBase = null;
             
-            if(basePiece.ParentGuid.IsPresent())
+            if(basePiece.ParentGuid.HasValue)
             {
                 parentBase = GuidHelper.GetObjectFrom(basePiece.ParentGuid.Get()).OrElse(null);
             }
@@ -181,7 +181,7 @@ namespace NitroxClient.MonoBehaviours
                 constructable.SetState(true, true);
             }
             
-            if (constructionCompleted.BaseGuid != null && GuidHelper.GetObjectFrom(constructionCompleted.BaseGuid).IsEmpty())
+            if (constructionCompleted.BaseGuid != null && !GuidHelper.GetObjectFrom(constructionCompleted.BaseGuid).HasValue)
             {
                 Log.Info("Creating base: " + constructionCompleted.BaseGuid);
                 ConfigureNewlyConstructedBase(constructionCompleted.BaseGuid);
@@ -192,7 +192,7 @@ namespace NitroxClient.MonoBehaviours
         {
             Optional<object> opNewlyCreatedBase = TransientLocalObjectManager.Get(TransientLocalObjectManager.TransientObjectType.BASE_GHOST_NEWLY_CONSTRUCTED_BASE_GAMEOBJECT);
 
-            if (opNewlyCreatedBase.IsPresent())
+            if (opNewlyCreatedBase.HasValue)
             {
                 GameObject newlyCreatedBase = (GameObject)opNewlyCreatedBase.Get();
                 GuidHelper.SetNewGuid(newlyCreatedBase, newBaseGuid);
@@ -220,7 +220,7 @@ namespace NitroxClient.MonoBehaviours
                 // After we have begun the deconstructing for a base piece, we need to transfer the guid
                 Optional<object> opGhost = TransientLocalObjectManager.Get(TransientObjectType.LATEST_DECONSTRUCTED_BASE_PIECE);
 
-                if(opGhost.IsPresent())
+                if(opGhost.HasValue)
                 {
                     GameObject ghost = (GameObject)opGhost.Get();
                     UnityEngine.Object.Destroy(constructing);

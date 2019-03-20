@@ -20,7 +20,7 @@ namespace NitroxModel.DataStructures.GameLogic.Buildings.Metadata
         public int ScaleIndex { get; set; }
 
         [ProtoMember(5)]
-        public bool[] Elements { get; set; }
+        public bool[] Elements { get; set; } = new bool[0];
 
         [ProtoMember(6)]
         public bool Background { get; set; }

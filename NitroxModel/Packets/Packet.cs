@@ -51,13 +51,9 @@ namespace NitroxModel.Packets
             using (MemoryStream ms = new MemoryStream())
             //using (LZ4Stream lz4s = new LZ4Stream(ms, LZ4StreamMode.Compress))
             {
-                Console.WriteLine("Packet serializing");
                 serializer.SerializeWithLengthPrefix(ms, packet, typeof(Packet), PrefixStyle.Fixed32BigEndian, -1);
 
-                byte[] buf = ms.ToArray();
-                Console.WriteLine($"Packet serialized: {string.Join(",", buf.Select(x => x.ToString()).ToArray())}");
-
-                return buf;
+                return ms.ToArray();
             }
         }
 
@@ -71,11 +67,7 @@ namespace NitroxModel.Packets
             using (MemoryStream ms = new MemoryStream(data))
             //using (LZ4Stream lz4s = new LZ4Stream(ms, LZ4StreamMode.Decompress))
             {
-                Console.WriteLine($"Packet deserializing: {string.Join(",", data.Select(x => x.ToString()).ToArray())}");
-
-                Packet p = (Packet)serializer.DeserializeWithLengthPrefix(ms, null, typeof(Packet), PrefixStyle.Fixed32BigEndian, -1);
-                Console.WriteLine("Packet deserialized");
-                return p;
+                return (Packet)serializer.DeserializeWithLengthPrefix(ms, null, typeof(Packet), PrefixStyle.Fixed32BigEndian, -1);
             }
         }
 

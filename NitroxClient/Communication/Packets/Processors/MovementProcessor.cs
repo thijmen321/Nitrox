@@ -18,7 +18,7 @@ namespace NitroxClient.Communication.Packets.Processors
         {
             Optional<RemotePlayer> remotePlayer = remotePlayerManager.Find(movement.PlayerId);
 
-            if (remotePlayer.IsPresent())
+            if (remotePlayer.HasValue)
             {
                 remotePlayer
                     .Get()

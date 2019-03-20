@@ -27,7 +27,7 @@ namespace NitroxServer.ConsoleCommands
 
                 string message = string.Join(" ", args);
 
-                if (player.IsPresent())
+                if (player.HasValue)
                 {
                     foundPlayer.SendPacket(new ChatMessage(player.Get().Id, message));
                 }

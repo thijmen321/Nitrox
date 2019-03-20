@@ -27,11 +27,11 @@ namespace NitroxClient.GameLogic.InitialSync
                 Player.main.SetPosition(position);
             }
 
-            if (subRootGuid.IsPresent())
+            if (subRootGuid.HasValue)
             {
                 Optional<GameObject> sub = GuidHelper.GetObjectFrom(subRootGuid.Get());
 
-                if (sub.IsPresent())
+                if (sub.HasValue)
                 {
                     Player.main.SetCurrentSub(sub.Get().GetComponent<SubRoot>());
                 }

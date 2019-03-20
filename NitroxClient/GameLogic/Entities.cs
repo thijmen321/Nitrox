@@ -77,7 +77,7 @@ namespace NitroxClient.GameLogic
                 }
             }
 
-            if (gameObject.IsPresent())
+            if (gameObject.HasValue)
             {
                 gameObject.Get().AddComponent<NitroxEntity>();
             }
@@ -104,7 +104,7 @@ namespace NitroxClient.GameLogic
         {
             Optional<GameObject> opGameObject = GuidHelper.GetObjectFrom(entity.Guid);
 
-            if (opGameObject.IsPresent())
+            if (opGameObject.HasValue)
             {
                 opGameObject.Get().transform.position = entity.Position;
                 opGameObject.Get().transform.localRotation = entity.Rotation;

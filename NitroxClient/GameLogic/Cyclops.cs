@@ -124,7 +124,7 @@ namespace NitroxClient.GameLogic
             {
                 CyclopsDamageInfoData damageInfo = null;
 
-                if (info.IsPresent())
+                if (info.HasValue)
                 {
                     DamageInfo damage = info.Get();
                     // Source of the damage. Used if the damage done to the Cyclops was not calculated on other clients. Currently it's just used to figure out what sounds and

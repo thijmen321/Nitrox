@@ -12,7 +12,7 @@ namespace NitroxModel.DataStructures.GameLogic
         public PlayerContext PlayerContext { get; set; }        
         public Vector3 Position { get; set; }
         public Optional<string> SubRootGuid { get; }
-        public List<TechType> EquippedTechTypes { get; }
+        public List<TechType> EquippedTechTypes { get; } = new List<TechType>();
 
         public InitialRemotePlayerData()
         {

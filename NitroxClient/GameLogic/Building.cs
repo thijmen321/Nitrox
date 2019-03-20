@@ -94,7 +94,7 @@ namespace NitroxClient.GameLogic
 
             string guid = GuidHelper.GetGuid(ghost);
 
-            if (opConstructedBase.IsPresent())
+            if (opConstructedBase.HasValue)
             {
                 GameObject constructedBase = (GameObject)opConstructedBase.Get();
                 baseGuid = GuidHelper.GetGuid(constructedBase);

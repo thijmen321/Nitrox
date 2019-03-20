@@ -41,13 +41,13 @@ namespace NitroxClient.GameLogic.InitialSync
 
                     Optional<GameObject> opGameObject = GuidHelper.GetObjectFrom(equippedItem.ContainerGuid);
 
-                    if (opGameObject.IsPresent())
+                    if (opGameObject.HasValue)
                     {
                         GameObject owner = opGameObject.Get();
 
                         Optional<Equipment> opEquipment = EquipmentHelper.GetBasedOnOwnersType(owner);
 
-                        if (opEquipment.IsPresent())
+                        if (opEquipment.HasValue)
                         {
                             Equipment equipment = opEquipment.Get();
                             InventoryItem inventoryItem = new InventoryItem(pickupable);

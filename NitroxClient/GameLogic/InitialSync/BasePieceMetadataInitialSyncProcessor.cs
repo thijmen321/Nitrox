@@ -20,7 +20,7 @@ namespace NitroxClient.GameLogic.InitialSync
 
             foreach (BasePiece basePiece in packet.BasePieces)
             {
-                if (basePiece.Metadata.IsPresent())
+                if (basePiece.Metadata.HasValue)
                 {
                     BasePieceMetadata metadata = basePiece.Metadata.Get();
                     BasePieceMetadataProcessor metadataProcessor = BasePieceMetadataProcessor.FromMetaData(metadata);

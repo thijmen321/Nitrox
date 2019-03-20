@@ -52,7 +52,7 @@ namespace NitroxServer.Serialization
             List<string> errors = new List<string>();
             Optional<string> subnauticaPath = GameInstallationFinder.Instance.FindGame(errors);
 
-            if (subnauticaPath.IsEmpty())
+            if (!subnauticaPath.HasValue)
             {
                 Log.Info($"Could not locate Subnautica installation directory: {Environment.NewLine}{string.Join(Environment.NewLine, errors)}");
                 return;

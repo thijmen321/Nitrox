@@ -67,7 +67,7 @@ namespace NitroxClient.GameLogic
 
             Optional<GameObject> opGameObject = GuidHelper.GetObjectFrom(vehicleModel.Guid);
 
-            if (opGameObject.IsPresent())
+            if (opGameObject.HasValue)
             {
                 GameObject gameObject = opGameObject.Get();
 
@@ -103,7 +103,7 @@ namespace NitroxClient.GameLogic
                 }
             }
 
-            if (player.IsPresent())
+            if (player.HasValue)
             {
                 RemotePlayer playerInstance = player.Get();
                 playerInstance.SetVehicle(vehicle);
@@ -129,7 +129,7 @@ namespace NitroxClient.GameLogic
             if (techType == TechType.Seamoth || techType == TechType.Exosuit)
             { // Seamoth & Prawn suit
                 Vehicle vehicle = gameObject.GetComponent<Vehicle>();
-                if (dockingBayGuid.IsPresent())
+                if (dockingBayGuid.HasValue)
                 {
                     GameObject dockingBayBase = GuidHelper.RequireObjectFrom(dockingBayGuid.Get());
                     VehicleDockingBay dockingBay = dockingBayBase.GetComponentInChildren<VehicleDockingBay>();
@@ -169,7 +169,7 @@ namespace NitroxClient.GameLogic
                 }
             }
 
-            if (interactiveChildIdentifiers.IsPresent())
+            if (interactiveChildIdentifiers.HasValue)
             {
                 VehicleChildObjectIdentifierHelper.SetInteractiveChildrenGuids(gameObject, interactiveChildIdentifiers.Get()); //Copy From ConstructorBeginCraftingProcessor
             }
@@ -178,7 +178,7 @@ namespace NitroxClient.GameLogic
         public void DestroyVehicle(string guid, bool isPiloting) //Destroy Vehicle From network
         {
             Optional<GameObject> Object = GuidHelper.GetObjectFrom(guid);
-            if (Object.IsPresent())
+            if (Object.HasValue)
             {
                 GameObject T = Object.Get();
                 Vehicle vehicle = T.RequireComponent<Vehicle>();
@@ -188,7 +188,7 @@ namespace NitroxClient.GameLogic
                     ushort pilot = ushort.Parse(vehicle.pilotId);
                     Optional<RemotePlayer> remotePilot = playerManager.Find(pilot);
 
-                    if (remotePilot.IsPresent()) // Get Remote Player Inside == vehicle.pilotId  Remove From Vehicle Before Destroy
+                    if (remotePilot.HasValue) // Get Remote Player Inside == vehicle.pilotId  Remove From Vehicle Before Destroy
                     {
                         RemotePlayer remotePlayer = remotePilot.Get();
                         remotePlayer.SetVehicle(null);
@@ -226,7 +226,7 @@ namespace NitroxClient.GameLogic
         public void UpdateVehicleChildren(string guid, List<InteractiveChildObjectIdentifier> interactiveChildrenGuids)
         {
             Optional<GameObject> Object = GuidHelper.GetObjectFrom(guid);
-            if (Object.IsPresent())
+            if (Object.HasValue)
             {
                 GameObject T = Object.Get();
                 VehicleChildObjectIdentifierHelper.SetInteractiveChildrenGuids(T, interactiveChildrenGuids);
@@ -261,7 +261,7 @@ namespace NitroxClient.GameLogic
                     ushort pilot = ushort.Parse(vehicle.pilotId);
                     Optional<RemotePlayer> remotePilot = playerManager.Find(pilot);
 
-                    if (remotePilot.IsPresent())
+                    if (remotePilot.HasValue)
                     {
                         RemotePlayer remotePlayer = remotePilot.Get();
                         remotePlayer.SetVehicle(null);
@@ -350,7 +350,7 @@ namespace NitroxClient.GameLogic
         {
             Optional<GameObject> opVehicle = GuidHelper.GetObjectFrom(vehicleGuid);
 
-            if (opVehicle.IsPresent())
+            if (opVehicle.HasValue)
             {
                 GameObject gameObject = opVehicle.Get();
                 Vehicle vehicle = gameObject.GetComponent<Vehicle>();

@@ -27,7 +27,7 @@ namespace NitroxModel.Discovery
             foreach (IFindGameInstallation finder in finders)
             {
                 Optional<string> path = finder.FindGame(errors);
-                if (path.IsPresent())
+                if (path.HasValue)
                 {
                     errors.Clear();
                     return path;

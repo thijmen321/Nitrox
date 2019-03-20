@@ -15,7 +15,7 @@ namespace NitroxModel.DataStructures.GameLogic
         public string Guid { get; }
 
         [ProtoMember(3)]
-        public byte[] SerializedData { get; }
+        public byte[] SerializedData { get; } = new byte[0];
 
         public ItemData()
         {

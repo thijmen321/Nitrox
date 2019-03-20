@@ -8,8 +8,13 @@ namespace NitroxModel.Packets
     public class CellVisibilityChanged : Packet
     {
         public ushort PlayerId { get; }
-        public AbsoluteEntityCell[] Added { get; }
-        public AbsoluteEntityCell[] Removed { get; }
+        public AbsoluteEntityCell[] Added { get; } = new AbsoluteEntityCell[0];
+        public AbsoluteEntityCell[] Removed { get; } = new AbsoluteEntityCell[0];
+
+        public CellVisibilityChanged()
+        {
+
+        }
 
         public CellVisibilityChanged(ushort playerId, AbsoluteEntityCell[] added, AbsoluteEntityCell[] removed)
         {

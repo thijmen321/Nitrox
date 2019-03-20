@@ -6,7 +6,12 @@ namespace NitroxModel.Packets
     [Serializable]
     public class ServerCommand : Packet
     {
-        public string[] CmdArgs;
+        public string[] CmdArgs { get; } = new string[0];
+
+        public ServerCommand()
+        {
+
+        }
 
         public ServerCommand(string[] args)
         {

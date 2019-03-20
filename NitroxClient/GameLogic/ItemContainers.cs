@@ -78,7 +78,7 @@ namespace NitroxClient.GameLogic
         {
             Optional<GameObject> owner = GuidHelper.GetObjectFrom(containerGuid);
 
-            if (owner.IsEmpty())
+            if (!owner.HasValue)
             {
                 Log.Info("Unable to find inventory container with id: " + containerGuid);
                 return;
@@ -86,7 +86,7 @@ namespace NitroxClient.GameLogic
 
             Optional<ItemsContainer> opContainer = InventoryContainerHelper.GetBasedOnOwnersType(owner.Get());
 
-            if (opContainer.IsPresent())
+            if (opContainer.HasValue)
             {
                 ItemsContainer container = opContainer.Get();
                 Pickupable pickupable = item.RequireComponent<Pickupable>();
@@ -108,7 +108,7 @@ namespace NitroxClient.GameLogic
             GameObject item = GuidHelper.RequireObjectFrom(itemGuid);
             Optional<ItemsContainer> opContainer = InventoryContainerHelper.GetBasedOnOwnersType(owner);
 
-            if (opContainer.IsPresent())
+            if (opContainer.HasValue)
             {
                 ItemsContainer container = opContainer.Get();
                 Pickupable pickupable = item.RequireComponent<Pickupable>();

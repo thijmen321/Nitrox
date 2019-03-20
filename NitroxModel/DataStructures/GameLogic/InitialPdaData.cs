@@ -6,11 +6,11 @@ namespace NitroxModel.DataStructures.GameLogic
     [Serializable]
     public class InitialPdaData
     {
-        public List<TechType> UnlockedTechTypes { get; set; }
-        public List<TechType> KnownTechTypes { get; set; }
-        public List<string> EncyclopediaEntries { get; set; }
-        public List<PDAEntry> PartiallyUnlockedTechTypes { get; set; }
-        public List<PDALogEntry> PDALogEntries { get; set; }
+        public List<TechType> UnlockedTechTypes { get; set; } = new List<TechType>();
+        public List<TechType> KnownTechTypes { get; set; } = new List<TechType>();
+        public List<string> EncyclopediaEntries { get; set; } = new List<string>();
+        public List<PDAEntry> PartiallyUnlockedTechTypes { get; set; } = new List<PDAEntry>();
+        public List<PDALogEntry> PDALogEntries { get; set; } = new List<PDALogEntry>();
 
         public InitialPdaData()
         {

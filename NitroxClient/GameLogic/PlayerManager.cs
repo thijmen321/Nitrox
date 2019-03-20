@@ -70,7 +70,7 @@ namespace NitroxClient.GameLogic
         public void RemovePlayer(ushort playerId)
         {
             Optional<RemotePlayer> opPlayer = Find(playerId);
-            if (opPlayer.IsPresent())
+            if (opPlayer.HasValue)
             {
                 opPlayer.Get().Destroy();
                 playersById.Remove(playerId);

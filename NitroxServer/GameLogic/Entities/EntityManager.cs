@@ -39,7 +39,7 @@ namespace NitroxServer.GameLogic.Entities
         {
             Optional<Entity> opEntity = entityData.GetEntityByGuid(guid);
 
-            if(opEntity.IsPresent())
+            if(opEntity.HasValue)
             {
                 Entity entity = opEntity.Get();
                 AbsoluteEntityCell oldCell = entity.AbsoluteEntityCell;

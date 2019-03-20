@@ -18,7 +18,7 @@ namespace NitroxModel.Helper
             if (o == null)
             {
                 Optional<string> paramName = GetParameterName<T>();
-                if (paramName.IsPresent())
+                if (paramName.HasValue)
                 {
                     throw new ArgumentNullException(paramName.Get());
                 }
@@ -35,7 +35,7 @@ namespace NitroxModel.Helper
             if (o == null)
             {
                 Optional<string> paramName = GetParameterName<T>();
-                if (paramName.IsPresent())
+                if (paramName.HasValue)
                 {
                     throw new ArgumentNullException(paramName.Get(), message);
                 }
@@ -80,7 +80,7 @@ namespace NitroxModel.Helper
 
         public static void IsPresent<T>(Optional<T> opt)
         {
-            if (opt.IsEmpty())
+            if (!opt.HasValue)
             {
                 throw new OptionalEmptyException<T>();
             }
@@ -88,7 +88,7 @@ namespace NitroxModel.Helper
 
         public static void IsPresent<T>(Optional<T> opt, string message)
         {
-            if (opt.IsEmpty())
+            if (!opt.HasValue)
             {
                 throw new OptionalEmptyException<T>(message);
             }

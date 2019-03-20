@@ -15,7 +15,7 @@ namespace NitroxClient.Communication.Packets.Processors
         {
             Optional<GameObject> opGameObject = GuidHelper.GetObjectFrom(packet.Guid);
 
-            if (opGameObject.IsPresent())
+            if (opGameObject.HasValue)
             {
                 CreatureAction action = packet.NewAction.GetCreatureAction(opGameObject.Get());
                 ActionByGuid[packet.Guid] = action;

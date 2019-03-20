@@ -9,7 +9,7 @@ namespace NitroxModel.Packets
     public class PlayerJoinedMultiplayerSession : Packet
     {
         public PlayerContext PlayerContext { get; }
-        public List<TechType> EquippedTechTypes { get; }
+        public List<TechType> EquippedTechTypes { get; } = new List<TechType>();
 
         public PlayerJoinedMultiplayerSession(PlayerContext playerContext, List<TechType> equippedTechTypes)
         {

@@ -58,7 +58,7 @@ namespace NitroxClient.Communication.Packets.Processors
         {
             Optional<GameObject> gameObject = GuidHelper.GetObjectFrom(guid);
 
-            if (gameObject.IsPresent())
+            if (gameObject.HasValue)
             {
                 EntityPositionBroadcaster.WatchEntity(guid, gameObject.Get());
             }

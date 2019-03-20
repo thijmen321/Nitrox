@@ -12,7 +12,7 @@ namespace NitroxClient.Communication.Packets.Processors
         {
             Optional<GameObject> opGameObject = GuidHelper.GetObjectFrom(pickup.Guid);
 
-            if (opGameObject.IsPresent())
+            if (opGameObject.HasValue)
             {
                 UnityEngine.Object.Destroy(opGameObject.Get());
             }

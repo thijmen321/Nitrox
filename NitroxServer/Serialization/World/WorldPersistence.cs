@@ -106,7 +106,7 @@ namespace NitroxServer.Serialization.World
         {
             Optional<World> fileLoadedWorld = LoadFromFile();
 
-            if (fileLoadedWorld.IsPresent())
+            if (fileLoadedWorld.HasValue)
             {
                 return fileLoadedWorld.Get();
             }

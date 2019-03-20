@@ -50,7 +50,7 @@ namespace NitroxPatcher.Patches
         {
             Optional<object> opGuid = TransientLocalObjectManager.Get(TransientObjectType.LATEST_DECONSTRUCTED_BASE_PIECE_GUID);
 
-            if (opGuid.IsPresent())
+            if (opGuid.HasValue)
             {
                 TransientLocalObjectManager.Add(TransientObjectType.LATEST_DECONSTRUCTED_BASE_PIECE_GUID, null);
 

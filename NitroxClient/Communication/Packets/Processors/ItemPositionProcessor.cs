@@ -15,7 +15,7 @@ namespace NitroxClient.Communication.Packets.Processors
         {
             Optional<GameObject> opItem = GuidHelper.GetObjectFrom(drop.Guid);
 
-            if (opItem.IsPresent())
+            if (opItem.HasValue)
             {
                 MovementHelper.MoveRotateGameObject(opItem.Get(), drop.Position, drop.Rotation, ITEM_TRANSFORM_SMOOTH_PERIOD);
             }

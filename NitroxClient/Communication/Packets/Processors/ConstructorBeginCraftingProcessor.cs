@@ -28,7 +28,7 @@ namespace NitroxClient.Communication.Packets.Processors
 
             Optional<object> opConstructedObject = TransientLocalObjectManager.Get(TransientObjectType.CONSTRUCTOR_INPUT_CRAFTED_GAMEOBJECT);
 
-            if (opConstructedObject.IsPresent())
+            if (opConstructedObject.HasValue)
             {
                 GameObject constructedObject = (GameObject)opConstructedObject.Get();
                 GuidHelper.SetNewGuid(constructedObject, packet.ConstructedItemGuid);

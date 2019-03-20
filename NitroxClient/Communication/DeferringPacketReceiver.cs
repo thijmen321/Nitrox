@@ -54,7 +54,7 @@ namespace NitroxClient.Communication
         {
             Optional<AbsoluteEntityCell> deferLocation = packet.GetDeferredCell();
 
-            if (deferLocation.IsPresent())
+            if (deferLocation.HasValue)
             {
                 AbsoluteEntityCell mustBeLoadedCell = deferLocation.Get();
 

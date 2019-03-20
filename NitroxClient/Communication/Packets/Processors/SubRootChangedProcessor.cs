@@ -20,11 +20,11 @@ namespace NitroxClient.Communication.Packets.Processors
         {
             Optional<RemotePlayer> remotePlayer = remotePlayerManager.Find(packet.PlayerId);
 
-            if (remotePlayer.IsPresent())
+            if (remotePlayer.HasValue)
             {
                 SubRoot subRoot = null;
 
-                if (packet.SubRootGuid.IsPresent())
+                if (packet.SubRootGuid.HasValue)
                 {
                     GameObject sub = GuidHelper.RequireObjectFrom(packet.SubRootGuid.Get());
                     subRoot = sub.GetComponent<SubRoot>();

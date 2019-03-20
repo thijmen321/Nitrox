@@ -185,7 +185,7 @@ namespace NitroxClient.MonoBehaviours.Overrides
                 transform.rotation = MultiplayerBuilder.placeRotation;
                 flag2 = componentInParent.UpdateGhostModel(MultiplayerBuilder.GetAimTransform(), MultiplayerBuilder.ghostModel, default(RaycastHit), out flag);
 
-                if(rotationMetadata.IsPresent())
+                if(rotationMetadata.HasValue)
                 {
                     ApplyRotationMetadata(MultiplayerBuilder.ghostModel, rotationMetadata.Get());
                 }

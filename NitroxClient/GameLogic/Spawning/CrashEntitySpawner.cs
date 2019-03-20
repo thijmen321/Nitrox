@@ -14,7 +14,7 @@ namespace NitroxClient.GameLogic.Spawning
          */
         public Optional<GameObject> Spawn(Entity entity, Optional<GameObject> parent)
         {
-            if (parent.IsPresent())
+            if (parent.HasValue)
             {
                 CrashHome crashHome = parent.Get().GetComponent<CrashHome>();
                 LargeWorldStreamer.main.StartCoroutine(WaitToAssignGuid(entity.Guid, crashHome));

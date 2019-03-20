@@ -68,7 +68,7 @@ namespace NitroxServer.ConsoleCommands.Abstract
 
         public void SendServerMessageIfPlayerIsPresent(Optional<Player> player, string message)
         {
-            if (player.IsPresent())
+            if (player.HasValue)
             {
                 player.Get().SendPacket(new ChatMessage(ChatMessage.SERVER_ID, message));
             }

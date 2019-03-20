@@ -17,14 +17,14 @@ namespace NitroxTest.Model
         public void OptionalIsPresent()
         {
             Optional<string> op = Optional<string>.Of("test");
-            Assert.AreEqual(true, op.IsPresent());
+            Assert.AreEqual(true, op.HasValue);
         }
 
         [TestMethod]
         public void OptionalIsNotPresent()
         {
             Optional<string> op = Optional<string>.Empty();
-            Assert.AreEqual(false, op.IsPresent());
+            Assert.AreEqual(false, op.HasValue);
         }
 
         [TestMethod]
@@ -45,7 +45,7 @@ namespace NitroxTest.Model
         public void OptionalEmpty()
         {
             Optional<string> op = Optional<string>.Empty();
-            Assert.AreEqual(true, op.IsEmpty());
+            Assert.AreEqual(true, !op.HasValue);
         }
 
         // Test functionality with value (non-nullable) types.
@@ -61,14 +61,14 @@ namespace NitroxTest.Model
         public void OptionalValueTypeIsPresent()
         {
             Optional<int> op = Optional<int>.Of(1);
-            Assert.AreEqual(true, op.IsPresent());
+            Assert.AreEqual(true, op.HasValue);
         }
 
         [TestMethod]
         public void OptionalValueTypeIsNotPresent()
         {
             Optional<int> op = Optional<int>.Empty();
-            Assert.AreEqual(false, op.IsPresent());
+            Assert.AreEqual(false, op.HasValue);
         }
 
         [TestMethod]
@@ -89,7 +89,7 @@ namespace NitroxTest.Model
         public void OptionalValueTypeEmpty()
         {
             Optional<int> op = Optional<int>.Empty();
-            Assert.AreEqual(true, op.IsEmpty());
+            Assert.AreEqual(true, !op.HasValue);
         }
     }
 }

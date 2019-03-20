@@ -21,7 +21,7 @@ namespace NitroxClient.Communication.Packets.Processors
             Pickupable pickupable = item.RequireComponent<Pickupable>();
             Optional<Equipment> opEquipment = EquipmentHelper.GetBasedOnOwnersType(owner);
 
-            if (opEquipment.IsPresent())
+            if (opEquipment.HasValue)
             {
                 Equipment equipment = opEquipment.Get();
 

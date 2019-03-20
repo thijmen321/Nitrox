@@ -15,7 +15,12 @@ namespace NitroxModel.Packets
         public TechType TechType { get; }
         public Vector3 ItemPosition { get; }
         public Quaternion ItemRotation { get; }
-        public byte[] Bytes { get; }
+        public byte[] Bytes { get; } = new byte[0];
+
+        public DroppedItem()
+        {
+
+        }
 
         public DroppedItem(string guid, Optional<string> waterParkGuid, TechType techType, Vector3 itemPosition, Quaternion itemRotation, byte[] bytes)
         {

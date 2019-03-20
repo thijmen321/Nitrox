@@ -20,7 +20,7 @@ namespace NitroxServer.ConsoleCommands
 
         public override void RunCommand(string[] args, Optional<Player> player)
         {
-            if (player.IsPresent())
+            if (player.HasValue)
             {
                 List<string> cmdsText = GetHelpText(playerData.GetPermissions(player.Get().Name));
                 cmdsText.ForEach(cmdText => SendServerMessageIfPlayerIsPresent(player, cmdText));

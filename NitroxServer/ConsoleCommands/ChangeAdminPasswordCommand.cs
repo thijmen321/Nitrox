@@ -23,7 +23,7 @@ namespace NitroxServer.ConsoleCommands
         {
             try
             {
-                string playerName = player.IsPresent() ? player.Get().Name : "SERVER";
+                string playerName = player.HasValue ? player.Get().Name : "SERVER";
                 ChangeAdminPassword(args[0], playerName);   
             }
             catch (Exception ex)

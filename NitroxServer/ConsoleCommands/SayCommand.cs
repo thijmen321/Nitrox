@@ -21,7 +21,7 @@ namespace NitroxServer.ConsoleCommands
             string message = "Saying: " + string.Join(" ", args);
             Log.Info(message);
 
-            if(player.IsPresent())
+            if(player.HasValue)
             {
                 playerManager.SendPacketToAllPlayers(new ChatMessage(player.Get().Id, string.Join(" ", args)));
             }

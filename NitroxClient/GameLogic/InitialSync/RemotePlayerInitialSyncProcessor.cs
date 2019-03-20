@@ -31,11 +31,11 @@ namespace NitroxClient.GameLogic.InitialSync
                 List<TechType> equippedTechTypes = playerData.EquippedTechTypes.Select(techType => techType.Enum()).ToList();
                 RemotePlayer player = remotePlayerManager.Create(playerData.PlayerContext, equippedTechTypes);
 
-                if (playerData.SubRootGuid.IsPresent())
+                if (playerData.SubRootGuid.HasValue)
                 {
                     Optional<GameObject> sub = GuidHelper.GetObjectFrom(playerData.SubRootGuid.Get());
 
-                    if (sub.IsPresent())
+                    if (sub.HasValue)
                     {
                         player.SetSubRoot(sub.Get().GetComponent<SubRoot>());
                     }

@@ -22,7 +22,7 @@ namespace NitroxServer.Communication.Packets.Processors
         public override void Process(VehicleDocking packet, Player player)
         {
             Optional<VehicleModel> vehicle = vehicleData.GetVehicleModel(packet.VehicleGuid);
-            if (!vehicle.IsPresent())
+            if (!vehicle.HasValue)
             {
                 Log.Error("VehicleDocking received for vehicle guid {0} that does not exist!", packet.VehicleGuid);
                 return;

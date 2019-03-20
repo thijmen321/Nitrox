@@ -7,7 +7,12 @@ namespace NitroxModel.Packets
     [Serializable]
     public class CellEntities : Packet
     {
-        public List<Entity> Entities { get; }
+        public List<Entity> Entities { get; } = new List<Entity>();
+
+        public CellEntities()
+        {
+
+        }
 
         public CellEntities(List<Entity> entities)
         {

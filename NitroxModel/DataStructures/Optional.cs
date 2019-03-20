@@ -45,19 +45,13 @@ namespace NitroxModel.DataStructures.Util
 
         public T Get()
         {
-            if (HasValue)
-            {
-                return Value;
-            }
-            else
+            if (!HasValue)
             {
                 throw new OptionalEmptyException<T>();
             }
+
+            return Value;
         }
-
-        public bool IsPresent() => HasValue;
-
-        public bool IsEmpty() => !HasValue;
 
         public T OrElse(T elseValue)
         {

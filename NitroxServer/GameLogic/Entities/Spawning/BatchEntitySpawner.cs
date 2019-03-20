@@ -141,7 +141,7 @@ namespace NitroxServer.GameLogic.Entities.Spawning
 
             Optional<UweWorldEntity> opWorldEntity = worldEntityFactory.From(selectedPrefab.ClassId);
             
-            if (opWorldEntity.IsPresent())
+            if (opWorldEntity.HasValue)
             {
                 UweWorldEntity uweWorldEntity = opWorldEntity.Get();
 
@@ -171,7 +171,7 @@ namespace NitroxServer.GameLogic.Entities.Spawning
                 {
                     Optional<UweWorldEntity> uweWorldEntity = worldEntityFactory.From(prefab.ClassId);
 
-                    if (uweWorldEntity.IsPresent() && entitySpawnPoint.AllowedTypes.Contains(uweWorldEntity.Get().SlotType))
+                    if (uweWorldEntity.HasValue && entitySpawnPoint.AllowedTypes.Contains(uweWorldEntity.Get().SlotType))
                     {
                         allowedPrefabs.Add(prefab);
                     }
@@ -185,7 +185,7 @@ namespace NitroxServer.GameLogic.Entities.Spawning
         {
             Optional<UweWorldEntity> uweWorldEntity = worldEntityFactory.From(entitySpawnPoint.ClassId);
 
-            if (uweWorldEntity.IsPresent())
+            if (uweWorldEntity.HasValue)
             {
                 IEnumerable<Entity> entities = CreateEntityWithChildren(entitySpawnPoint,
                                                                         entitySpawnPoint.Scale,

@@ -173,7 +173,7 @@ namespace NitroxClient.GameLogic
         public void OnRadioRepair(string guid)
         {
             Optional<GameObject> radObj = GuidHelper.GetObjectFrom(guid);
-            if (radObj.IsPresent())
+            if (radObj.HasValue)
             {
                 Radio radio = radObj.Get().GetComponent<Radio>();
 

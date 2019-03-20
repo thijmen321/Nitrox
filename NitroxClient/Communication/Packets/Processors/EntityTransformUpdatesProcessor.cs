@@ -15,7 +15,7 @@ namespace NitroxClient.Communication.Packets.Processors
             {
                 Optional<GameObject> opGameObject = GuidHelper.GetObjectFrom(entity.Guid);
 
-                if (opGameObject.IsPresent())
+                if (opGameObject.HasValue)
                 {
                     GameObject gameObject = opGameObject.Get();
 

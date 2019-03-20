@@ -13,7 +13,7 @@ namespace NitroxModel.Packets
         public string VehicleGuid { get; }
 
         [ProtoMember(2)]
-        public List<InteractiveChildObjectIdentifier> InteractiveChildIdentifiers { get; set; }
+        public List<InteractiveChildObjectIdentifier> InteractiveChildIdentifiers { get; set; } = new List<InteractiveChildObjectIdentifier>();
 
         public VehicleChildUpdate()
         {

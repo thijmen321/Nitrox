@@ -45,7 +45,7 @@ namespace NitroxClient.GameLogic
         {
             Movement movement;
 
-            if (vehicle.IsPresent())
+            if (vehicle.HasValue)
             {
                 movement = new VehicleMovement(multiplayerSession.Reservation.PlayerId, vehicle.Get());
             }

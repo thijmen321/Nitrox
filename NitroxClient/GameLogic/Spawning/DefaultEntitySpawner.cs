@@ -27,7 +27,7 @@ namespace NitroxClient.GameLogic.Spawning
             gameObject.transform.position = entity.Position;
             gameObject.transform.localScale = entity.Scale;
 
-            if (parent.IsPresent())
+            if (parent.HasValue)
             {
                 gameObject.transform.SetParent(parent.Get().transform, true);
             }

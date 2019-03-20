@@ -12,6 +12,8 @@ namespace NitroxModel.Helper
     {
         private const BindingFlags ALL_INSTANCE_BINDING_FLAGS = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
 
+        private static readonly MethodInfo initializeMethod = typeof(FormatterServices).GetMethod(nameof(FormatterServices.GetUninitializedObject));
+
         public RuntimeTypeModel Model { get; }
 
         private readonly TypeModelMembers members;
@@ -21,7 +23,6 @@ namespace NitroxModel.Helper
         {
             Model = TypeModel.Create();
             Model.AutoAddMissingTypes = false;
-            Model.SetDefaultFactory(typeof(FormatterServices).GetMethod(nameof(FormatterServices.GetUninitializedObject)));
 
             this.members = members;
             tags = new Dictionary<Type, int>();
@@ -65,8 +66,6 @@ namespace NitroxModel.Helper
                     !type.ContainsGenericParameters &&
                     Attribute.IsDefined(type, typeof(A), false))
                 {
-                    Console.WriteLine($"Adding type {type.Name}");
-
                     AddTypeInternal(type);
                 }
             }
@@ -111,6 +110,7 @@ namespace NitroxModel.Helper
 
             MetaType meta = Model.Add(type, false); // Fails when type is a basic type
             DecorateType(meta, members);
+            SkipConstructor(meta);
 
             return meta;
         }
@@ -139,7 +139,7 @@ namespace NitroxModel.Helper
                         {
                             ValueMember vm = type.AddField(NextTag(type), field.Name);
 
-                            if (field.FieldType.IsInterface)// || property.PropertyType == typeof(object))
+                            if (field.FieldType.IsInterface)
                             {
                                 vm.DynamicType = true;
                             }
@@ -153,7 +153,7 @@ namespace NitroxModel.Helper
                         {
                             ValueMember vm = type.AddField(NextTag(type), prop.Name);
 
-                            if (prop.PropertyType.IsInterface)// || property.PropertyType == typeof(object))
+                            if (prop.PropertyType.IsInterface)
                             {
                                 vm.DynamicType = true;
                             }
@@ -185,6 +185,14 @@ namespace NitroxModel.Helper
                 }
 
                 type.SetCallbacks(bS, aS, bD, aD);
+            }
+        }
+
+        private void SkipConstructor(MetaType type)
+        {
+            if (!type.GetFields().Any(f => f.MemberType.IsArray || (f.MemberType.IsGenericType && f.MemberType.GetGenericTypeDefinition() == typeof(List<>))))
+            {
+                type.SetFactory(initializeMethod);
             }
         }
     }

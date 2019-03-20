@@ -134,7 +134,7 @@ namespace NitroxLauncher
             List<string> errors = new List<string>();
             Optional<string> installation = GameInstallationFinder.Instance.FindGame(errors);
 
-            if (!installation.IsPresent())
+            if (!installation.HasValue)
             {
                 MessageBox.Show("Please configure your Subnautica location in settings.", "Error", MessageBoxButtons.OK);
                 return true;

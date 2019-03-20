@@ -33,7 +33,7 @@ namespace NitroxClient.Communication.Packets.Processors
         {
             Optional<RemotePlayer> remotePlayer = remotePlayerManager.Find(message.PlayerId);
 
-            if (remotePlayer.IsPresent())
+            if (remotePlayer.HasValue)
             {
                 RemotePlayer remotePlayerInstance = remotePlayer.Get();
                 ChatLogEntry chatLogEntry = new ChatLogEntry(remotePlayerInstance.PlayerName, message.Text, remotePlayerInstance.PlayerSettings.PlayerColor);

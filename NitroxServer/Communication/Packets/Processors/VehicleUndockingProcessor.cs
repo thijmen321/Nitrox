@@ -21,7 +21,7 @@ namespace NitroxServer.Communication.Packets.Processors
         public override void Process(VehicleUndocking packet, Player player)
         {
             Optional<VehicleModel> vehicle = vehicleData.GetVehicleModel(packet.VehicleGuid);
-            if (!vehicle.IsPresent())
+            if (!vehicle.HasValue)
             {
                 return;
             }
